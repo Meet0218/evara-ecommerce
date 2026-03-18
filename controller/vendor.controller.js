@@ -200,9 +200,9 @@ export const productsData = async (req, res) => {
 
     let allImageUrlString = "";
     for (let i = 0; i < fileArray.length; i++) {
-      let path = fileArray[i].path;
+      let buffer = fileArray[i].buffer;
 
-      let image = await uploadOnCloude(path);
+      let image = await uploadOnCloude(buffer);
 
       if (i == 0) {
         allImageUrlString = image.secure_url;
@@ -343,9 +343,9 @@ export const postProductDetails = async (req, res) => {
       if (fileArray.length > 0) {
         let allImageUrlString = "";
         for (let i = 0; i < fileArray.length; i++) {
-          let path = fileArray[i].path;
+          let buffer = fileArray[i].buffer;
 
-          let image = await uploadOnCloude(path);
+          let image = await uploadOnCloude(buffer);
 
           if (i == 0) {
             allImageUrlString = image.secure_url;
@@ -591,8 +591,8 @@ export const editProfileDetails = async (req, res) => {
     }
     let vendorId = req.vendorDetails.vendor_id;
     let data = req.body;
-    if (req.file?.path) {
-      const cloudinaryResponse = await uploadOnCloude(req.file.path);
+    if (req.file?.buffer) {
+      const cloudinaryResponse = await uploadOnCloude(req.file.buffer);
 
       let file = req.file;
 

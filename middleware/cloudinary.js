@@ -1,7 +1,6 @@
 // import {v2 as cloudinary} from 'cloudinary';
 import pkg from "cloudinary";
 const { v2: cloudinary } = pkg;
-import fs from "fs";
 import "dotenv/config";
 
 cloudinary.config({
@@ -10,22 +9,23 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-export const uploadOnCloude = async (localPath) => {
-  try {
-    if (!localPath) {
-      return null;
+export const uploadOnCloude = async (fileBuffer) => {
+  return new Promise((resolve) => {
+    if (!fileBuffer) {
+      return resolve(null);
     }
 
-        const respone = await cloudinary.uploader.upload(localPath, {
-            resource_type : "auto"
-        })
-        
-        fs.unlinkSync(localPath);
-        return respone;
+    const uploadStream = cloudinary.uploader.upload_stream(
+      { resource_type: "auto" },
+      (error, result) => {
+        if (error) {
+          console.error("Cloudinary upload error:", error);
+          return resolve(null);
+        }
+        resolve(result);
+      }
+    );
 
-
-    } catch (error) {
-        fs.unlinkSync(localPath);
-        return null;
-    }
-}
+    uploadStream.end(fileBuffer);
+  });
+};

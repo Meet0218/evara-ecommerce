@@ -62,7 +62,8 @@ import {
 } from "../controller/vendor.controller.js";
 import multer from "multer";
 import { validateTokenForVendor } from "../middleware/jwtToken.js";
-const upload = multer({ dest: "uploads/" });
+
+const upload = multer({ storage: multer.memoryStorage() });
 const routes = express();
 // const upload = multer;
 

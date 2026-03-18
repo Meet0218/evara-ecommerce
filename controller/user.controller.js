@@ -490,8 +490,8 @@ export const addReview = async (req, res) => {
     let userId = req.body.userInfo.user_id;
 
     for (let i = 0; i < file.length; i++) {
-      let path = file[i].path;
-      let image = await uploadOnCloude(path);
+      let buffer = file[i].buffer;
+      let image = await uploadOnCloude(buffer);
 
       imageArr.push(image.url);
     }
