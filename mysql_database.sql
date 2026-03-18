@@ -12,6 +12,8 @@ SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
+CREATE DATABASE IF NOT EXISTS ecommerce;
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -27,9 +29,10 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `admin_table`
 --
+USE ecommerce;
 
 CREATE TABLE `admin_table` (
-  `admin_id` int NOT NULL,
+  `admin_id` int NOT NULL PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -57,7 +60,7 @@ INSERT INTO `admin_table` (`admin_id`, `first_name`, `last_name`, `email`, `phon
 --
 
 CREATE TABLE `bill_table` (
-  `bill_id` int NOT NULL,
+  `bill_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `product_price` int NOT NULL,
@@ -203,7 +206,7 @@ INSERT INTO `bill_table` (`bill_id`, `user_id`, `product_id`, `product_price`, `
 --
 
 CREATE TABLE `cart` (
-  `cart_id` int NOT NULL,
+  `cart_id` int NOT NULL PRIMARY KEY,
   `category_id` int NOT NULL,
   `user_id` int NOT NULL,
   `quantity` int NOT NULL DEFAULT '1',
@@ -304,7 +307,7 @@ INSERT INTO `cart` (`cart_id`, `category_id`, `user_id`, `quantity`, `vendor_pro
 --
 
 CREATE TABLE `categories` (
-  `cat_id` int NOT NULL,
+  `cat_id` int NOT NULL PRIMARY KEY,
   `cat_name` varchar(255) NOT NULL,
   `parent_cat_id` int NOT NULL DEFAULT '0',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -402,7 +405,7 @@ INSERT INTO `categories` (`cat_id`, `cat_name`, `parent_cat_id`, `created_at`, `
 --
 
 CREATE TABLE `cities` (
-  `id` int NOT NULL,
+  `id` int NOT NULL PRIMARY KEY,
   `name` varchar(100) NOT NULL,
   `state_id` int NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -48384,7 +48387,7 @@ INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 --
 
 CREATE TABLE `countries` (
-  `id` int NOT NULL,
+  `id` int NOT NULL PRIMARY KEY,
   `sortname` varchar(30) NOT NULL,
   `name` varchar(150) NOT NULL,
   `phonecode` int NOT NULL
@@ -48649,7 +48652,7 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 --
 
 CREATE TABLE `dynamic_data` (
-  `id` int NOT NULL,
+  `id` int NOT NULL PRIMARY KEY,
   `values_for` varchar(45) NOT NULL,
   `title` varchar(1000) NOT NULL,
   `content` varchar(1000) NOT NULL,
@@ -48692,7 +48695,7 @@ INSERT INTO `dynamic_data` (`id`, `values_for`, `title`, `content`, `updated_at`
 --
 
 CREATE TABLE `notification_details` (
-  `notification_id` int NOT NULL,
+  `notification_id` int NOT NULL PRIMARY KEY,
   `notification_created_by` varchar(255) NOT NULL,
   `notification_for` varchar(255) NOT NULL,
   `notification_created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -48822,7 +48825,7 @@ INSERT INTO `notification_details` (`notification_id`, `notification_created_by`
 --
 
 CREATE TABLE `offers_details` (
-  `offer_id` int NOT NULL,
+  `offer_id` int NOT NULL PRIMARY KEY,
   `offer_name` varchar(45) NOT NULL,
   `offer_start_date` varchar(45) NOT NULL,
   `offer_end_date` varchar(45) NOT NULL,
@@ -48848,7 +48851,7 @@ INSERT INTO `offers_details` (`offer_id`, `offer_name`, `offer_start_date`, `off
 --
 
 CREATE TABLE `order_details` (
-  `order_id` int NOT NULL,
+  `order_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `product_id` int NOT NULL,
   `vendor_id` int NOT NULL,
@@ -48981,7 +48984,7 @@ INSERT INTO `order_details` (`order_id`, `user_id`, `product_id`, `vendor_id`, `
 --
 
 CREATE TABLE `payment_table` (
-  `payment_id` int NOT NULL,
+  `payment_id` int NOT NULL PRIMARY KEY,
   `order_id` int NOT NULL,
   `user_id` int NOT NULL,
   `payment_type` varchar(45) NOT NULL,
@@ -49069,7 +49072,7 @@ INSERT INTO `payment_table` (`payment_id`, `order_id`, `user_id`, `payment_type`
 --
 
 CREATE TABLE `products` (
-  `products_id` int NOT NULL,
+  `products_id` int NOT NULL PRIMARY KEY,
   `products_name` varchar(1000) NOT NULL,
   `vendor_product_id` int NOT NULL,
   `description` varchar(1000) NOT NULL,
@@ -53622,7 +53625,7 @@ INSERT INTO `products` (`products_id`, `products_name`, `vendor_product_id`, `de
 --
 
 CREATE TABLE `refund_details` (
-  `refund_id` int NOT NULL,
+  `refund_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `order_id` int NOT NULL,
   `payment_id` int NOT NULL,
@@ -53654,7 +53657,7 @@ INSERT INTO `refund_details` (`refund_id`, `user_id`, `order_id`, `payment_id`, 
 --
 
 CREATE TABLE `review_table` (
-  `review_id` int NOT NULL,
+  `review_id` int NOT NULL PRIMARY KEY,
   `order_id` int NOT NULL,
   `vendor_product_id` int NOT NULL,
   `user_id` int NOT NULL,
@@ -53682,7 +53685,7 @@ INSERT INTO `review_table` (`review_id`, `order_id`, `vendor_product_id`, `user_
 --
 
 CREATE TABLE `shipment_details` (
-  `shipment_id` int NOT NULL,
+  `shipment_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `order_id` int NOT NULL,
   `shipment_status` varchar(45) CHARACTER SET armscii8 COLLATE armscii8_general_ci DEFAULT NULL
@@ -53695,7 +53698,7 @@ CREATE TABLE `shipment_details` (
 --
 
 CREATE TABLE `states` (
-  `id` int NOT NULL,
+  `id` int NOT NULL PRIMARY KEY,
   `name` varchar(100) NOT NULL,
   `country_id` int NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -57805,7 +57808,7 @@ INSERT INTO `states` (`id`, `name`, `country_id`) VALUES
 --
 
 CREATE TABLE `tax_table` (
-  `tax_id` int NOT NULL,
+  `tax_id` int NOT NULL PRIMARY KEY,
   `parent_category_id` int DEFAULT NULL,
   `s_gst` int DEFAULT NULL,
   `c_gst` int DEFAULT NULL,
@@ -57831,7 +57834,7 @@ INSERT INTO `tax_table` (`tax_id`, `parent_category_id`, `s_gst`, `c_gst`, `crea
 --
 
 CREATE TABLE `user_address_table` (
-  `address_id` int NOT NULL,
+  `address_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `address` varchar(255) NOT NULL,
   `pin_code` varchar(255) NOT NULL,
@@ -57875,7 +57878,7 @@ INSERT INTO `user_address_table` (`address_id`, `user_id`, `address`, `pin_code`
 --
 
 CREATE TABLE `user_table` (
-  `user_id` int NOT NULL,
+  `user_id` int NOT NULL PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `mobile_number` varchar(255) NOT NULL,
@@ -57914,7 +57917,7 @@ INSERT INTO `user_table` (`user_id`, `first_name`, `last_name`, `mobile_number`,
 --
 
 CREATE TABLE `vendor_details` (
-  `vendor_id` int NOT NULL,
+  `vendor_id` int NOT NULL PRIMARY KEY,
   `first_name` varchar(255) NOT NULL,
   `last_name` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
@@ -57955,7 +57958,7 @@ INSERT INTO `vendor_details` (`vendor_id`, `first_name`, `last_name`, `email`, `
 --
 
 CREATE TABLE `vendor_product_details` (
-  `vendor_product_id` int NOT NULL,
+  `vendor_product_id` int NOT NULL PRIMARY KEY,
   `category_id` int NOT NULL,
   `vendor_id` int NOT NULL,
   `product_name` varchar(1000) NOT NULL,
@@ -58058,7 +58061,7 @@ INSERT INTO `vendor_product_details` (`vendor_product_id`, `category_id`, `vendo
 --
 
 CREATE TABLE `vendor_stock_history` (
-  `vendor_stock_history_id` int NOT NULL,
+  `vendor_stock_history_id` int NOT NULL PRIMARY KEY,
   `vendor_product_id` int NOT NULL,
   `total_previous_stock` int NOT NULL,
   `total_available_stock` int NOT NULL,
@@ -58184,7 +58187,7 @@ INSERT INTO `vendor_stock_history` (`vendor_stock_history_id`, `vendor_product_i
 --
 
 CREATE TABLE `wishlist_table` (
-  `wishlist_id` int NOT NULL,
+  `wishlist_id` int NOT NULL PRIMARY KEY,
   `user_id` int NOT NULL,
   `vendor_product_id` int NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -58276,13 +58279,13 @@ INSERT INTO `wishlist_table` (`wishlist_id`, `user_id`, `vendor_product_id`, `cr
 -- Indexes for table `admin_table`
 --
 ALTER TABLE `admin_table`
-  ADD PRIMARY KEY (`admin_id`);
+  ADD KEY `admin_id_pk` (`admin_id`);
 
 --
 -- Indexes for table `bill_table`
 --
 ALTER TABLE `bill_table`
-  ADD PRIMARY KEY (`bill_id`),
+  ADD KEY `bill_id_pk` (`bill_id`),
   ADD KEY `fk_bill_table_1_idx` (`user_id`),
   ADD KEY `fk_bill_table_2_idx` (`product_id`),
   ADD KEY `fk_bill_table_3_idx` (`order_id`),
@@ -58292,7 +58295,7 @@ ALTER TABLE `bill_table`
 -- Indexes for table `cart`
 --
 ALTER TABLE `cart`
-  ADD PRIMARY KEY (`cart_id`),
+  ADD KEY `cart_id_pk` (`cart_id`),
   ADD UNIQUE KEY `uq_cart_entry` (`user_id`,`vendor_product_id`),
   ADD KEY `fk_cart_2_idx` (`vendor_product_id`),
   ADD KEY `fk_cart_3_idx` (`category_id`);
@@ -58301,51 +58304,51 @@ ALTER TABLE `cart`
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
-  ADD PRIMARY KEY (`cat_id`);
+  ADD KEY `cat_id_pk` (`cat_id`);
 
 --
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `id_pk` (`id`);
 
 --
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `id_pk` (`id`);
 
 --
 -- Indexes for table `dynamic_data`
 --
 ALTER TABLE `dynamic_data`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `id_pk` (`id`);
 
 --
 -- Indexes for table `notification_details`
 --
 ALTER TABLE `notification_details`
-  ADD PRIMARY KEY (`notification_id`);
+  ADD KEY `notification_id_pk` (`notification_id`);
 
 --
 -- Indexes for table `offers_details`
 --
 ALTER TABLE `offers_details`
-  ADD PRIMARY KEY (`offer_id`),
+  ADD KEY `offer_id_pk` (`offer_id`),
   ADD KEY `categories` (`parent_category_id`);
 
 --
 -- Indexes for table `order_details`
 --
 ALTER TABLE `order_details`
-  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `order_id_pk` (`order_id`),
   ADD KEY `fk_order_details_1_idx` (`user_id`);
 
 --
 -- Indexes for table `payment_table`
 --
 ALTER TABLE `payment_table`
-  ADD PRIMARY KEY (`payment_id`),
+  ADD KEY `payment_id_pk` (`payment_id`),
   ADD KEY `fk_payment_table_1_idx` (`user_id`),
   ADD KEY `fk_payment_table_2_idx` (`order_id`);
 
@@ -58353,14 +58356,14 @@ ALTER TABLE `payment_table`
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
-  ADD PRIMARY KEY (`products_id`),
+  ADD KEY `products_id_pk` (`products_id`),
   ADD KEY `categories_id` (`categories_id`);
 
 --
 -- Indexes for table `refund_details`
 --
 ALTER TABLE `refund_details`
-  ADD PRIMARY KEY (`refund_id`),
+  ADD KEY `refund_id_pk` (`refund_id`),
   ADD KEY `fk_refund_details_1_idx` (`user_id`),
   ADD KEY `fk_refund_details_2_idx` (`order_id`),
   ADD KEY `fk_refund_details_3_idx` (`payment_id`);
@@ -58369,7 +58372,7 @@ ALTER TABLE `refund_details`
 -- Indexes for table `review_table`
 --
 ALTER TABLE `review_table`
-  ADD PRIMARY KEY (`review_id`),
+  ADD KEY `review_id_pk` (`review_id`),
   ADD KEY `fk_review_table_1_idx` (`order_id`),
   ADD KEY `fk_review_table_2_idx` (`vendor_product_id`),
   ADD KEY `fk_review_table_3_idx` (`user_id`);
@@ -58378,7 +58381,7 @@ ALTER TABLE `review_table`
 -- Indexes for table `shipment_details`
 --
 ALTER TABLE `shipment_details`
-  ADD PRIMARY KEY (`shipment_id`),
+  ADD KEY `shipment_id_pk` (`shipment_id`),
   ADD KEY `fk_shipment_details_1_idx` (`user_id`),
   ADD KEY `fk_shipment_details_2_idx` (`order_id`);
 
@@ -58386,40 +58389,40 @@ ALTER TABLE `shipment_details`
 -- Indexes for table `states`
 --
 ALTER TABLE `states`
-  ADD PRIMARY KEY (`id`);
+  ADD KEY `id_pk` (`id`);
 
 --
 -- Indexes for table `tax_table`
 --
 ALTER TABLE `tax_table`
-  ADD PRIMARY KEY (`tax_id`),
+  ADD KEY `tax_id_pk` (`tax_id`),
   ADD KEY `fk_tax_table_1_idx` (`parent_category_id`);
 
 --
 -- Indexes for table `user_address_table`
 --
 ALTER TABLE `user_address_table`
-  ADD PRIMARY KEY (`address_id`),
+  ADD KEY `address_id_pk` (`address_id`),
   ADD KEY `fk_user_address_table_1_idx` (`user_id`);
 
 --
 -- Indexes for table `user_table`
 --
 ALTER TABLE `user_table`
-  ADD PRIMARY KEY (`user_id`);
+  ADD KEY `user_id_pk` (`user_id`);
 
 --
 -- Indexes for table `vendor_details`
 --
 ALTER TABLE `vendor_details`
-  ADD PRIMARY KEY (`vendor_id`),
+  ADD KEY `vendor_id_pk` (`vendor_id`),
   ADD UNIQUE KEY `gst_number` (`gst_number`);
 
 --
 -- Indexes for table `vendor_product_details`
 --
 ALTER TABLE `vendor_product_details`
-  ADD PRIMARY KEY (`vendor_product_id`),
+  ADD KEY `vendor_product_id_pk` (`vendor_product_id`),
   ADD KEY `fk_vendor_product_details_1_idx` (`vendor_id`),
   ADD KEY `fk_vendor_product_details_2_idx` (`category_id`);
 
@@ -58427,14 +58430,14 @@ ALTER TABLE `vendor_product_details`
 -- Indexes for table `vendor_stock_history`
 --
 ALTER TABLE `vendor_stock_history`
-  ADD PRIMARY KEY (`vendor_stock_history_id`),
+  ADD KEY `vendor_stock_history_id_pk` (`vendor_stock_history_id`),
   ADD KEY `fk_vendor_stock_history_1_idx` (`vendor_product_id`);
 
 --
 -- Indexes for table `wishlist_table`
 --
 ALTER TABLE `wishlist_table`
-  ADD PRIMARY KEY (`wishlist_id`),
+  ADD KEY `wishlist_id_pk` (`wishlist_id`),
   ADD UNIQUE KEY `uq_wishlist_table` (`user_id`,`vendor_product_id`),
   ADD KEY `fk_wishlist_table_2_idx` (`vendor_product_id`);
 
