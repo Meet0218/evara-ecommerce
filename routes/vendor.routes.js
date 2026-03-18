@@ -61,8 +61,11 @@ import {
   updateVendorStatusApi
 } from "../controller/vendor.controller.js";
 import multer from "multer";
+import os from "os";
 import { validateTokenForVendor } from "../middleware/jwtToken.js";
-const upload = multer({ dest: "uploads/" });
+
+const dest = process.env.VERCEL === '1' ? os.tmpdir() : "uploads/";
+const upload = multer({ dest });
 const routes = express();
 // const upload = multer;
 
