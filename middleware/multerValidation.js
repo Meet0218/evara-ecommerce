@@ -1,23 +1,6 @@
 import multer from 'multer';
-import os from 'os';
 
-const isVercel = process.env.VERCEL === '1';
-
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      if (isVercel) {
-        return cb(null, os.tmpdir());
-      }
-      if(req.path === '/submitReview'){
-        return cb(null, "./public/images/reviewImages");
-      }else{
-        return cb(null, "./public/images/uploads");
-      }
-    },
-    filename: function (req, file, cb) {
-      return cb(null, `${Date.now()}-${file.originalname}`);
-    },
-  });
+const storage = multer.memoryStorage();
 
 
 //Use this upload in form when you don't have to take the images from the user
