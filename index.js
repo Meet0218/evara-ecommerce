@@ -21,8 +21,8 @@ app.use(express.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Static files
-app.use(express.static('public'));
+// Static files - use absolute path for Vercel serverless compatibility
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Set current path for views
 app.use((req, res, next) => {
